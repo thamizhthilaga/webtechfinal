@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="icon" type="image/svg+xml" href="/student-favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .jobs-info-container { max-width: 1000px; margin: 2rem auto; }
+    .jobs-scroll { max-height: 60vh; overflow-y: auto; padding-right: 1rem; }
+    .job-card-simple { border: 1px solid #e6edf3; border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; background: #fff; }
+    .job-title { font-size: 1.25rem; color: #4a76ff; margin-bottom: .25rem; }
+    .job-company { font-weight: 700; margin-bottom: .25rem; }
+    .job-location { color: #6b6f76; margin-bottom: .5rem; }
+    .job-description { color: #344; }
+  </style>
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="jobs-info-container">
+      <div style="text-align:center; margin-bottom:1rem;">
+        <h1>Job Opportunities</h1>
+        <p>All job openings in the database</p>
+      </div>
+
+      <div class="jobs-scroll">
+        <% if (jobs && jobs.length > 0) { %>
+          <% jobs.forEach(job => { %>
+            <div class="job-card-simple">
+              <div class="job-title"><%= job.title %></div>
+              <div class="job-company"><%= job.company %></div>
+              <div class="job-location">📍 <%= job.location %></div>
+              <div class="job-description"><%= job.description %></div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <div class="job-card-simple">
+            <p>No job listings available at the moment.</p>
+          </div>
+        <% } %>
+      </div>
+
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

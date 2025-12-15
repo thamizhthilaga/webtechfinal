@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="icon" type="image/svg+xml" href="/student-favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/roadmap.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="roadmap-container">
+      <div class="roadmap-header">
+        <h1>Career Roadmap</h1>
+        <h2><%= career.name %></h2>
+      </div>
+
+      <section class="roadmap-section">
+        <h3>Your Learning Journey</h3>
+        <div class="roadmap-timeline">
+          <% career.roadmap.forEach((step, index) => { %>
+            <div class="roadmap-step">
+              <div class="step-circle"><%= index + 1 %></div>
+              <div class="step-content">
+                <h4><%= step %></h4>
+                <% if (index === 0) { %>
+                  <p>Start with fundamentals and basic concepts</p>
+                <% } else if (index === career.roadmap.length - 1) { %>
+                  <p>Advanced topics and specialization</p>
+                <% } else { %>
+                  <p>Build upon your previous knowledge</p>
+                <% } %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </section>
+
+      <section class="roadmap-section">
+        <h3>Key Milestones</h3>
+        <div class="milestones-grid">
+          <div class="milestone">
+            <div class="milestone-icon learning-icon"></div>
+            <h4>Learning</h4>
+            <p>Complete online courses and tutorials</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-icon projects-icon"></div>
+            <h4>Projects</h4>
+            <p>Build real-world projects</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-icon practice-icon"></div>
+            <h4>Practice</h4>
+            <p>Solve coding challenges</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-icon certification-icon"></div>
+            <h4>Certification</h4>
+            <p>Get certified in your field</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="roadmap-section">
+        <h3>Essential Skills to Master</h3>
+        <div class="skills-matrix">
+          <% career.skills.forEach(function(skill) { 
+               var skillName = (typeof skill === 'string') ? skill : (skill.name || 'Skill');
+               var skillLevel = (typeof skill === 'object' && skill.level != null) ? skill.level : 70;
+               if (skillLevel < 0) skillLevel = 0; if (skillLevel > 100) skillLevel = 100;
+          %>
+            <div class="skill-progress">
+              <h5><%= skillName %></h5>
+              <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= skillLevel %>">
+                <div class="progress" style="width: <%= skillLevel %>%"></div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </section>
+
+      <div class="roadmap-actions">
+        <a href="/learning/path" class="btn btn-primary">Start Learning</a>
+        <a href="/assessment/assessment" class="btn btn-secondary">Retake Assessment</a>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

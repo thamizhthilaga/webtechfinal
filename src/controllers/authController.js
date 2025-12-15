@@ -96,11 +96,12 @@ exports.register = async (req, res) => {
     await user.save();
 
     // Generate JWT token
-    const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRE }
-    );
+   const token = jwt.sign(
+  { id: user._id, email: user.email, role: user.role },
+  process.env.JWT_SECRET,
+  { expiresIn: "7d" }   // ✅ FIX
+);
+
 
     // Set cookie
     res.cookie('token', token, {
